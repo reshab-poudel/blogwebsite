@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CodeCraft Blog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+      body {
+        font-family: "Inter", sans-serif;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-900">
+    <!-- Header -->
+    <header class="bg-white shadow-sm">
+      <div class="max-w-5xl mx-auto px-4 py-6">
+        <div class="text-center">
+          <h1 class="text-4xl font-bold text-blue-600">CodeCraft</h1>
+          <p class="text-gray-600 mt-2">Your guide to modern web development</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section
+      class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-16"
+    >
+      <div class="max-w-5xl mx-auto px-4 text-center">
+        <h2 class="text-4xl font-bold mb-4">Welcome to CodeCraft</h2>
+        <p class="text-lg mb-8 max-w-2xl mx-auto">
+          Discover tutorials, tips, and insights about web development,
+          programming, and the latest tech trends.
+        </p>
+        <button
+          class="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+          onclick="scrollToArticles()"
+        >
+          Explore Articles
+        </button>
+      </div>
+    </section>
+
+    <!-- Featured Article Slideshow -->
+    <section class="max-w-5xl mx-auto px-4 py-8">
+      <h2 class="text-3xl font-bold mb-8 text-center">Featured Article</h2>
+      <div class="relative bg-white rounded-lg shadow-lg overflow-hidden">
+        <div id="slideshow" class="relative h-96">
+          <!-- Slide 1 -->
+          <div
+            class="slide absolute inset-0 p-8 bg-gradient-to-r from-blue-500 to-purple-600 text-white flex items-center opacity-100 transition-opacity duration-1000"
+          >
+            <div class="max-w-2xl">
+              <span
+                class="bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm font-medium mb-4 inline-block"
+                >JavaScript</span
+              >
+              <h3 class="text-3xl font-bold mb-4">
+                Getting Started with React Hooks
+              </h3>
+              <p class="text-lg mb-6">
+                React Hooks revolutionized how we write React components. Learn
+                useState, useEffect, and custom hooks to build modern, efficient
+                applications.
+              </p>
+              <button
+                class="bg-white text-blue-600 px-6 py-2 rounded font-semibold hover:bg-gray-100 transition-colors"
+                onclick="showArticle('React Hooks')"
+              >
+                Read Full Article
+              </button>
+            </div>
+          </div>
+
+          <!-- Slide 2 -->
+          <div
+            class="slide absolute inset-0 p-8 bg-gradient-to-r from-green-500 to-teal-600 text-white flex items-center opacity-0 transition-opacity duration-1000"
+          >
+            <div class="max-w-2xl">
+              <span
+                class="bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm font-medium mb-4 inline-block"
+                >CSS</span
+              >
+              <h3 class="text-3xl font-bold mb-4">Mastering CSS Grid Layout</h3>
+              <p class="text-lg mb-6">
+                CSS Grid is the most powerful layout system available. Master
+                grid-template-areas, auto-fit, and responsive design patterns.
+              </p>
+              <button
+                class="bg-white text-green-600 px-6 py-2 rounded font-semibold hover:bg-gray-100 transition-colors"
+                onclick="showArticle('CSS Grid')"
+              >
+                Read Full Article
+              </button>
+            </div>
+          </div>
+
+          <!-- Slide 3 -->
+          <div
+            class="slide absolute inset-0 p-8 bg-gradient-to-r from-purple-500 to-pink-600 text-white flex items-center opacity-0 transition-opacity duration-1000"
+          >
+            <div class="max-w-2xl">
+              <span
+                class="bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm font-medium mb-4 inline-block"
+                >Node.js</span
+              >
+              <h3 class="text-3xl font-bold mb-4">
+                Building REST APIs with Express
+              </h3>
+              <p class="text-lg mb-6">
+                Create scalable backend services with Express.js. Learn routing,
+                middleware, authentication, and database integration.
+              </p>
+              <button
+                class="bg-white text-purple-600 px-6 py-2 rounded font-semibold hover:bg-gray-100 transition-colors"
+                onclick="showArticle('REST APIs')"
+              >
+                Read Full Article
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slideshow indicators -->
+        <div
+          class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2"
+        >
+          <button
+            class="indicator w-3 h-3 rounded-full bg-white opacity-100"
+            onclick="goToSlide(0)"
+          ></button>
+          <button
+            class="indicator w-3 h-3 rounded-full bg-white opacity-50"
+            onclick="goToSlide(1)"
+          ></button>
+          <button
+            class="indicator w-3 h-3 rounded-full bg-white opacity-50"
+            onclick="goToSlide(2)"
+          ></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Articles Section -->
+    <section id="articles" class="max-w-5xl mx-auto px-4 py-16">
+      <h2 class="text-3xl font-bold mb-12 text-center">All Articles</h2>
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Article 1 -->
+        <article
+          class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow"
+        >
+          <div class="flex items-center mb-4">
+            <span
+              class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium"
+              >JavaScript</span
+            >
+            <span class="text-gray-500 ml-4 text-sm">March 15, 2025</span>
+            <span class="text-gray-500 ml-4 text-sm">• 8 min read</span>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">
+            Getting Started with React Hooks
+          </h3>
+          <p class="text-gray-600 mb-4">
+            Learn how to use React Hooks to manage state and side effects in
+            your functional components effectively. We'll cover useState,
+            useEffect, useContext, and how to create custom hooks for reusable
+            logic.
+          </p>
+          <button
+            class="text-blue-600 font-medium hover:text-blue-800 transition-colors"
+            onclick="showArticle('React Hooks')"
+          >
+            Read More →
+          </button>
+        </article>
+
+        <!-- Article 2 -->
+        <article
+          class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow"
+        >
+          <div class="flex items-center mb-4">
+            <span
+              class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium"
+              >CSS</span
+            >
+            <span class="text-gray-500 ml-4 text-sm">March 12, 2025</span>
+            <span class="text-gray-500 ml-4 text-sm">• 6 min read</span>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">Mastering CSS Grid Layout</h3>
+          <p class="text-gray-600 mb-4">
+            Discover the power of CSS Grid and how to create complex, responsive
+            layouts with ease. From basic grid concepts to advanced techniques
+            like subgrid and container queries.
+          </p>
+          <button
+            class="text-blue-600 font-medium hover:text-blue-800 transition-colors"
+            onclick="showArticle('CSS Grid')"
+          >
+            Read More →
+          </button>
+        </article>
+
+        <!-- Article 3 -->
+        <article
+          class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow"
+        >
+          <div class="flex items-center mb-4">
+            <span
+              class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium"
+              >Node.js</span
+            >
+            <span class="text-gray-500 ml-4 text-sm">March 10, 2025</span>
+            <span class="text-gray-500 ml-4 text-sm">• 12 min read</span>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">
+            Building REST APIs with Express
+          </h3>
+          <p class="text-gray-600 mb-4">
+            Step-by-step guide to creating robust REST APIs using Express.js and
+            best practices. Includes authentication, validation, error handling,
+            and database integration with MongoDB.
+          </p>
+          <button
+            class="text-blue-600 font-medium hover:text-blue-800 transition-colors"
+            onclick="showArticle('REST APIs')"
+          >
+            Read More →
+          </button>
+        </article>
+
+        <!-- Article 4 -->
+        <article
+          class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow"
+        >
+          <div class="flex items-center mb-4">
+            <span
+              class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-medium"
+              >Tools</span
+            >
+            <span class="text-gray-500 ml-4 text-sm">March 8, 2025</span>
+            <span class="text-gray-500 ml-4 text-sm">• 5 min read</span>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">
+            Essential VS Code Extensions
+          </h3>
+          <p class="text-gray-600 mb-4">
+            Boost your productivity with these must-have Visual Studio Code
+            extensions for web developers. From code formatting to debugging
+            tools and theme customization.
+          </p>
+          <button
+            class="text-blue-600 font-medium hover:text-blue-800 transition-colors"
+            onclick="showArticle('VS Code Extensions')"
+          >
+            Read More →
+          </button>
+        </article>
+
+        <!-- Article 5 -->
+        <article
+          class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow"
+        >
+          <div class="flex items-center mb-4">
+            <span
+              class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-medium"
+              >Performance</span
+            >
+            <span class="text-gray-500 ml-4 text-sm">March 5, 2025</span>
+            <span class="text-gray-500 ml-4 text-sm">• 10 min read</span>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">
+            Web Performance Optimization
+          </h3>
+          <p class="text-gray-600 mb-4">
+            Learn advanced techniques to make your websites lightning fast. Code
+            splitting, lazy loading, image optimization, and Core Web Vitals
+            improvement strategies.
+          </p>
+          <button
+            class="text-blue-600 font-medium hover:text-blue-800 transition-colors"
+            onclick="showArticle('Web Performance')"
+          >
+            Read More →
+          </button>
+        </article>
+
+        <!-- Article 6 -->
+        <article
+          class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow"
+        >
+          <div class="flex items-center mb-4">
+            <span
+              class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm font-medium"
+              >TypeScript</span
+            >
+            <span class="text-gray-500 ml-4 text-sm">March 3, 2025</span>
+            <span class="text-gray-500 ml-4 text-sm">• 7 min read</span>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">TypeScript for Beginners</h3>
+          <p class="text-gray-600 mb-4">
+            Get started with TypeScript and add type safety to your JavaScript
+            projects. Learn interfaces, generics, and how to migrate existing
+            projects to TypeScript.
+          </p>
+          <button
+            class="text-blue-600 font-medium hover:text-blue-800 transition-colors"
+            onclick="showArticle('TypeScript')"
+          >
+            Read More →
+          </button>
+        </article>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+      <div class="max-w-5xl mx-auto px-4">
+        <div class="grid md:grid-cols-3 gap-8 mb-6">
+          <div>
+            <h3 class="text-lg font-semibold mb-3">CodeCraft</h3>
+            <p class="text-gray-400">
+              Your trusted source for web development tutorials and programming
+              insights.
+            </p>
+          </div>
+          <div>
+            <h4 class="font-semibold mb-3">Categories</h4>
+            <ul class="space-y-2 text-gray-400">
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >JavaScript</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors">CSS</a>
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >Node.js</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors">Tools</a>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-semibold mb-3">About</h4>
+            <ul class="space-y-2 text-gray-400">
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >Contact</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >Privacy Policy</a
+                >
+              </li>
+              <li>
+                <a href="#" class="hover:text-white transition-colors"
+                  >Terms of Service</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="border-t border-gray-700 pt-6 text-center text-gray-400">
+          <p>Made by Reshab</p>
+          <p class="mt-2">&copy; 2025 CodeCraft. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      let currentSlide = 0;
+      const slides = document.querySelectorAll(".slide");
+      const indicators = document.querySelectorAll(".indicator");
+      const totalSlides = slides.length;
+
+      function showSlide(index) {
+        // Hide all slides
+        slides.forEach((slide) => {
+          slide.style.opacity = "0";
+        });
+
+        // Update indicators
+        indicators.forEach((indicator) => {
+          indicator.style.opacity = "0.5";
+        });
+
+        // Show current slide and update indicator
+        slides[index].style.opacity = "1";
+        indicators[index].style.opacity = "1";
+      }
+
+      function nextSlide() {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        showSlide(currentSlide);
+      }
+
+      function goToSlide(index) {
+        currentSlide = index;
+        showSlide(currentSlide);
+      }
+
+      // Auto-advance slideshow every 4 seconds
+      setInterval(nextSlide, 4000);
+
+      function scrollToArticles() {
+        document.getElementById("articles").scrollIntoView({
+          behavior: "smooth",
+        });
+      }
+
+      const articles = {
+        "React Hooks": {
+          title: "Getting Started with React Hooks",
+          category: "JavaScript",
+          date: "March 15, 2025",
+          readTime: "8 min read",
+          content: `React Hooks have revolutionized the way we write React components, allowing us to use state and other React features in functional components. Before hooks, we had to use class components for state management, which often led to complex and hard-to-maintain code.
+
+The most fundamental hook is useState, which allows you to add state to functional components. Simply call useState with an initial value, and it returns an array with the current state value and a function to update it. For example, const [count, setCount] = useState(0) creates a counter state.
+
+useEffect is another essential hook that handles side effects in your components. It combines the functionality of componentDidMount, componentDidUpdate, and componentWillUnmount from class components. You can use it for data fetching, subscriptions, or manually changing the DOM.
+
+Custom hooks are where the real power lies. They allow you to extract component logic into reusable functions. A custom hook is just a JavaScript function whose name starts with "use" and that may call other hooks. This promotes code reuse and makes your components cleaner and more focused on rendering.
+
+With hooks, your React code becomes more functional, easier to test, and simpler to understand.`,
+        },
+        "CSS Grid": {
+          title: "Mastering CSS Grid Layout",
+          category: "CSS",
+          date: "March 12, 2025",
+          readTime: "6 min read",
+          content: `CSS Grid is the most powerful layout system available in CSS today. Unlike Flexbox, which is one-dimensional, Grid is two-dimensional, allowing you to work with both rows and columns simultaneously. This makes it perfect for creating complex, responsive layouts with minimal code.
+
+The foundation of CSS Grid starts with defining a grid container using display: grid. You then define your grid structure using grid-template-columns and grid-template-rows. For example, grid-template-columns: 1fr 2fr 1fr creates three columns where the middle column is twice as wide as the side columns.
+
+Grid areas are one of the most intuitive features of CSS Grid. Using grid-template-areas, you can create a visual representation of your layout directly in your CSS. This makes your code self-documenting and easy to understand at a glance.
+
+Auto-placement is another powerful feature. Grid automatically places items that don't have explicit positioning, following a smart algorithm that fills gaps efficiently. You can control this behavior with grid-auto-flow.
+
+Responsive design with Grid is incredibly straightforward. The repeat() function combined with minmax() allows you to create flexible grids that adapt to different screen sizes without media queries.`,
+        },
+        "REST APIs": {
+          title: "Building REST APIs with Express",
+          category: "Node.js",
+          date: "March 10, 2025",
+          readTime: "12 min read",
+          content: `Building REST APIs with Express.js is one of the most popular ways to create backend services for web applications. Express provides a minimal and flexible framework that makes it easy to build robust APIs quickly and efficiently.
+
+REST (Representational State Transfer) is an architectural style that uses standard HTTP methods like GET, POST, PUT, and DELETE to perform operations on resources. Each resource is identified by a URL, and the API should be stateless, meaning each request contains all the information needed to process it.
+
+Setting up an Express server is straightforward. After installing Express with npm, you can create a basic server with just a few lines of code. The app.listen() method starts your server on a specified port, and you can define routes using methods like app.get(), app.post(), etc.
+
+Middleware is a crucial concept in Express. Functions like express.json() parse incoming JSON data, while custom middleware can handle authentication, logging, and error handling. Middleware functions have access to the request and response objects and can modify them or terminate the request-response cycle.
+
+Database integration typically involves using an ORM like Mongoose for MongoDB or Sequelize for SQL databases. Proper error handling, input validation, and authentication are essential for production-ready APIs.`,
+        },
+        "VS Code Extensions": {
+          title: "Essential VS Code Extensions",
+          category: "Tools",
+          date: "March 8, 2025",
+          readTime: "5 min read",
+          content: `Visual Studio Code is already a powerful editor out of the box, but extensions can supercharge your development workflow. The right extensions can save you hours of work and make coding more enjoyable and efficient.
+
+Prettier is absolutely essential for code formatting. It automatically formats your code according to consistent rules, eliminating debates about code style in teams. Combined with ESLint, which catches potential errors and enforces coding standards, these two extensions form the foundation of clean, maintainable code.
+
+For web developers, Live Server is a game-changer. It creates a local development server with live reload functionality, so you can see your changes instantly in the browser without manually refreshing. This speeds up the development process significantly.
+
+GitLens enhances VS Code's Git capabilities by showing blame information, commit history, and repository insights directly in your editor. You can see who wrote each line of code and when, making collaboration and debugging much easier.
+
+Language-specific extensions like ES7+ React/Redux/React-Native snippets provide intelligent code completion and snippets for modern JavaScript development. Auto Rename Tag automatically renames paired HTML/XML tags, and Bracket Pair Colorizer helps you match brackets in complex nested code.
+
+Theme extensions like One Dark Pro or Material Theme can make your coding environment more visually appealing and reduce eye strain during long coding sessions.`,
+        },
+        "Web Performance": {
+          title: "Web Performance Optimization",
+          category: "Performance",
+          date: "March 5, 2025",
+          readTime: "10 min read",
+          content: `Web performance optimization is crucial for user experience and SEO rankings. Google's Core Web Vitals have made performance metrics more important than ever, directly affecting your site's search rankings and user satisfaction.
+
+The first step in optimization is measuring performance. Tools like Google PageSpeed Insights, Lighthouse, and WebPageTest provide detailed analysis of your site's performance. Focus on metrics like First Contentful Paint (FCP), Largest Contentful Paint (LCP), and Cumulative Layout Shift (CLS).
+
+Image optimization often provides the biggest performance gains. Use modern formats like WebP or AVIF, implement responsive images with srcset, and consider lazy loading for images below the fold. Tools like ImageOptim or online services can compress images without visible quality loss.
+
+Code splitting is essential for JavaScript-heavy applications. Instead of loading all your JavaScript at once, split your code into smaller chunks that load only when needed. Modern bundlers like Webpack and Vite make this process straightforward.
+
+Caching strategies can dramatically improve repeat visit performance. Implement proper HTTP caching headers, use service workers for offline functionality, and consider CDNs for static assets. Browser caching reduces server load and improves user experience.
+
+Minification and compression of CSS, JavaScript, and HTML files reduce file sizes. Enable gzip or Brotli compression on your server to further reduce transfer sizes.`,
+        },
+        TypeScript: {
+          title: "TypeScript for Beginners",
+          category: "TypeScript",
+          date: "March 3, 2025",
+          readTime: "7 min read",
+          content: `TypeScript is a superset of JavaScript that adds static type definitions to the language. It helps catch errors during development rather than at runtime, making your code more reliable and easier to maintain, especially in large applications.
+
+The basic types in TypeScript include string, number, boolean, array, and object. You can also define custom types using interfaces or type aliases. For example, interface User { name: string; age: number; } defines a user object structure that TypeScript will enforce throughout your code.
+
+One of TypeScript's most powerful features is type inference. Even without explicit type annotations, TypeScript can often figure out what types your variables should be based on how you use them. This means you get type safety without writing excessive type annotations.
+
+Generics allow you to write reusable code that works with multiple types. Instead of writing separate functions for different types, you can use generics to create flexible, type-safe functions. For example, function identity<T>(arg: T): T { return arg; } works with any type.
+
+Migrating existing JavaScript projects to TypeScript is straightforward. Start by renaming .js files to .ts, then gradually add type annotations. TypeScript's compiler can work alongside JavaScript, so you can migrate incrementally without breaking existing functionality.
+
+Modern frameworks like React, Vue, and Angular have excellent TypeScript support, making it easier than ever to build type-safe applications.`,
+        },
+      };
+
+      function showArticle(title) {
+        const article = articles[title];
+        if (!article) return;
+
+        // Create modal overlay
+        const modal = document.createElement("div");
+        modal.className =
+          "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50";
+        modal.onclick = (e) => {
+          if (e.target === modal) closeModal();
+        };
+
+        // Create modal content
+        const modalContent = document.createElement("div");
+        modalContent.className =
+          "bg-white rounded-lg max-w-4xl max-h-[90vh] overflow-y-auto p-8 relative";
+
+        modalContent.innerHTML = `
+                <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl font-bold">&times;</button>
+                <div class="mb-6">
+                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">${
+                      article.category
+                    }</span>
+                    <span class="text-gray-500 ml-4 text-sm">${
+                      article.date
+                    }</span>
+                    <span class="text-gray-500 ml-4 text-sm">• ${
+                      article.readTime
+                    }</span>
+                </div>
+                <h1 class="text-3xl font-bold mb-6">${article.title}</h1>
+                <div class="prose prose-lg max-w-none">
+                    ${article.content
+                      .split("\n\n")
+                      .map(
+                        (paragraph) =>
+                          `<p class="mb-4 text-gray-700 leading-relaxed">${paragraph}</p>`
+                      )
+                      .join("")}
+                </div>
+            `;
+
+        modal.appendChild(modalContent);
+        document.body.appendChild(modal);
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeModal() {
+        const modal = document.querySelector(".fixed.inset-0");
+        if (modal) {
+          document.body.removeChild(modal);
+          document.body.style.overflow = "auto";
+        }
+      }
+
+      // Add smooth hover effects for articles
+      document.addEventListener("DOMContentLoaded", function () {
+        const articles = document.querySelectorAll("article");
+        articles.forEach((article) => {
+          article.addEventListener("mouseenter", function () {
+            this.style.transform = "translateY(-2px)";
+          });
+          article.addEventListener("mouseleave", function () {
+            this.style.transform = "translateY(0)";
+          });
+        });
+      });
+    </script>
+    <script>
+      (function () {
+        function c() {
+          var b = a.contentDocument || a.contentWindow.document;
+          if (b) {
+            var d = b.createElement("script");
+            d.innerHTML =
+              "window.__CF$cv$params={r:'96a6093f25772f9b',t:'MTc1NDM5NDE5OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+            b.getElementsByTagName("head")[0].appendChild(d);
+          }
+        }
+        if (document.body) {
+          var a = document.createElement("iframe");
+          a.height = 1;
+          a.width = 1;
+          a.style.position = "absolute";
+          a.style.top = 0;
+          a.style.left = 0;
+          a.style.border = "none";
+          a.style.visibility = "hidden";
+          document.body.appendChild(a);
+          if ("loading" !== document.readyState) c();
+          else if (window.addEventListener)
+            document.addEventListener("DOMContentLoaded", c);
+          else {
+            var e = document.onreadystatechange || function () {};
+            document.onreadystatechange = function (b) {
+              e(b);
+              "loading" !== document.readyState &&
+                ((document.onreadystatechange = e), c());
+            };
+          }
+        }
+      })();
+    </script>
+  </body>
+</html>
